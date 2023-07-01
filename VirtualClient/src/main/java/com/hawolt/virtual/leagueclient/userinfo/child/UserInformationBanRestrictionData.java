@@ -1,5 +1,7 @@
 package com.hawolt.virtual.leagueclient.userinfo.child;
 
+import com.hawolt.logger.Logger;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -11,7 +13,15 @@ public class UserInformationBanRestrictionData {
     private final UserInformationBanRestrictionGameData userInformationBanRestrictionGameData;
 
     public UserInformationBanRestrictionData(JSONObject o) {
-        this.userInformationBanRestrictionGameData = new UserInformationBanRestrictionGameData(o.getJSONObject("gameData"));
+        JSONObject gameData;
+        try {
+            gameData =o.getJSONObject("gameData");
+        } catch (JSONException var4) {
+            this.userInformationBanRestrictionGameData = null;
+            Logger.error(var4);
+            return;
+        }
+        this.userInformationBanRestrictionGameData =new UserInformationBanRestrictionGameData(gameData);
     }
 
     public UserInformationBanRestrictionGameData getUserInformationBanRestrictionGameData() {
