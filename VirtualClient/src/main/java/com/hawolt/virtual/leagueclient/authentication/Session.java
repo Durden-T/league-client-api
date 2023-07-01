@@ -81,10 +81,11 @@ public class Session extends StringTokenSupplier implements IAuthentication {
         Call call = OkHttp3Client.perform(request, gateway);
         try (Response response = call.execute()) {
             String plain = response.body().string();
-            Logger.info("session resp: {}", plain);
+            Logger.info("login resp: {}, header: {}", plain, response.headers().toString());
             File file = new File("./session.txt");
             FileWriter writer = new FileWriter(file, true);
             writer.write(plain);
+            writer.write(response.headers().toString());
             writer.close();
 
             String token = plain.substring(1, plain.length() - 1);

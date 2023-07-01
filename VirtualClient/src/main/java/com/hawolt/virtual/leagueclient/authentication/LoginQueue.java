@@ -54,10 +54,11 @@ public class LoginQueue extends StringTokenSupplier implements IAuthentication {
             String plain = response.body().string();
             JSONObject object = new JSONObject(plain);
             if (!object.has("token")) throw new IOException("NO_DATA_PRESENT");
-            Logger.info("login resp: {}", plain);
+            Logger.info("login resp: {}, header: {}", plain, response.headers().toString());
             File file = new File("./login.txt");
             FileWriter writer = new FileWriter(file, true);
             writer.write(plain);
+            writer.write(response.headers().toString());
             writer.close();
 
             String token = object.getString("token");
