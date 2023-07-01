@@ -1,8 +1,6 @@
 package com.hawolt.virtual.leagueclient.userinfo.child;
 
-import com.hawolt.logger.Logger;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -23,12 +21,8 @@ public class UserInformationBan {
         if (o.has("desc")) this.description = o.getString("desc");
         if (o.has("exp")) this.expires = o.get("exp");
         JSONArray array = o.getJSONArray("restrictions");
-        try{
-            for (int i = 0; i < array.length(); i++) {
-                list.add(new UserInformationBanRestriction(array.getJSONObject(i)));
-            }
-        }catch (JSONException e){
-            Logger.error(e);
+        for (int i = 0; i < array.length(); i++) {
+            list.add(new UserInformationBanRestriction(array.getJSONObject(i)));
         }
     }
 
