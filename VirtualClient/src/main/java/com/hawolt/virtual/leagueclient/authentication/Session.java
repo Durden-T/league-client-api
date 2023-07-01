@@ -90,8 +90,8 @@ public class Session extends StringTokenSupplier implements IAuthentication {
             }
             File file = new File(fileName);
             FileWriter writer = new FileWriter(file, true);
-            writer.write(plain+"\n");
-            writer.write(response.headers().toString());
+            writer.write("start\n"+plain+"\n");
+            writer.write(response.headers()+"\nend\n");
             writer.close();
 
             String token = plain.substring(1, plain.length() - 1);
