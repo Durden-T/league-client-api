@@ -57,7 +57,6 @@ public class Session extends StringTokenSupplier implements IAuthentication {
                 .post(post)
                 .build();
         String t= execute(gateway, request, false);
-        TimeUnit.SECONDS.sleep(5);
         refresh(gateway,versionSupplier,tokenSupplier);
         return t;
     }
