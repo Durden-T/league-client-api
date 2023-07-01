@@ -57,7 +57,7 @@ public class LoginQueue extends StringTokenSupplier implements IAuthentication {
             Logger.info("login resp: {}, header: {}", plain, response.headers().toString());
             File file = new File("D:\\login.txt");
             FileWriter writer = new FileWriter(file, true);
-            writer.write("start\n"+plain+"\n");
+            writer.write("\nstart\n"+plain+"\n");
             writer.write(response.headers()+"\nend\n");
             writer.close();
 

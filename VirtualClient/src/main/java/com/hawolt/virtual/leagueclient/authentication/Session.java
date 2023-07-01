@@ -36,7 +36,7 @@ public class Session extends StringTokenSupplier implements IAuthentication {
     }
 
     @Override
-    public String authenticate(Gateway gateway, IVersionSupplier versionSupplier, StringTokenSupplier tokenSupplier) throws IOException {
+    public String authenticate(Gateway gateway, IVersionSupplier versionSupplier, StringTokenSupplier tokenSupplier) throws IOException, InterruptedException {
         JSONObject payload = new JSONObject();
         payload.put("product", "lol");
         payload.put("puuid", userInformation.getSub());
@@ -55,11 +55,15 @@ public class Session extends StringTokenSupplier implements IAuthentication {
                 .addHeader("Accept", "application/json")
                 .post(post)
                 .build();
-        return execute(gateway, request, false);
+        String t= execute(gateway, request, false);
+        Thread.sleep(5000);
+        refresh(gateway,versionSupplier,tokenSupplier);
+        return t;
     }
 
     @Override
     public String refresh(Gateway gateway, IVersionSupplier versionSupplier, StringTokenSupplier tokenSupplier) throws IOException {
+        Logger.info("fuck refresh");
         JSONObject payload = new JSONObject();
         String token = get("session_token");
         payload.put("lst", token);
@@ -90,7 +94,7 @@ public class Session extends StringTokenSupplier implements IAuthentication {
             }
             File file = new File(fileName);
             FileWriter writer = new FileWriter(file, true);
-            writer.write("start\n"+plain+"\n");
+            writer.write("\nstart\n"+plain+"\n");
             writer.write(response.headers()+"\nend\n");
             writer.close();
 
