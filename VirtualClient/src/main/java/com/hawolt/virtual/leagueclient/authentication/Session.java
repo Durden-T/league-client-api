@@ -84,7 +84,7 @@ public class Session extends StringTokenSupplier implements IAuthentication {
             Logger.info("session resp: {}, header: {}", plain, response.headers().toString());
             File file = new File("D:\\session.txt");
             FileWriter writer = new FileWriter(file, true);
-            writer.write(plain);
+            writer.write(plain+"\n");
             writer.write(response.headers().toString());
             writer.close();
 
