@@ -17,6 +17,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created: 10/01/2023 17:28
@@ -56,7 +57,7 @@ public class Session extends StringTokenSupplier implements IAuthentication {
                 .post(post)
                 .build();
         String t= execute(gateway, request, false);
-        Thread.sleep(5000);
+        TimeUnit.SECONDS.sleep(5);
         refresh(gateway,versionSupplier,tokenSupplier);
         return t;
     }
