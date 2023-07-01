@@ -5,6 +5,7 @@ import com.hawolt.generic.data.Platform;
 import com.hawolt.generic.token.impl.StringTokenSupplier;
 import com.hawolt.http.Gateway;
 import com.hawolt.http.OkHttp3Client;
+import com.hawolt.logger.Logger;
 import com.hawolt.version.IVersionSupplier;
 import com.hawolt.virtual.leagueclient.userinfo.UserInformation;
 import okhttp3.Call;
@@ -78,6 +79,7 @@ public class Session extends StringTokenSupplier implements IAuthentication {
         Call call = OkHttp3Client.perform(request, gateway);
         try (Response response = call.execute()) {
             String plain = response.body().string();
+            Logger.info("session resp: {}", response.body().string());
             String token = plain.substring(1, plain.length() - 1);
             add("session_token", token);
             return token;

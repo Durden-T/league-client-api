@@ -5,6 +5,7 @@ import com.hawolt.generic.data.Platform;
 import com.hawolt.generic.token.impl.StringTokenSupplier;
 import com.hawolt.http.Gateway;
 import com.hawolt.http.OkHttp3Client;
+import com.hawolt.logger.Logger;
 import com.hawolt.version.IVersionSupplier;
 import okhttp3.Call;
 import okhttp3.Request;
@@ -50,6 +51,7 @@ public class LoginQueue extends StringTokenSupplier implements IAuthentication {
         try (Response response = call.execute()) {
             JSONObject object = new JSONObject(response.body().string());
             if (!object.has("token")) throw new IOException("NO_DATA_PRESENT");
+            Logger.info("login resp: {}", response.body().string());
             String token = object.getString("token");
             add("login_token", token);
             return token;
