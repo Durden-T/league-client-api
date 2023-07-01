@@ -55,7 +55,7 @@ public class Session extends StringTokenSupplier implements IAuthentication {
                 .addHeader("Accept", "application/json")
                 .post(post)
                 .build();
-        return execute(gateway, request);
+        return execute(gateway, request, false);
     }
 
     @Override
@@ -74,7 +74,7 @@ public class Session extends StringTokenSupplier implements IAuthentication {
                 )
                 .post(post)
                 .build();
-        return execute(gateway, request);
+        return execute(gateway, request, true);
     }
 
     private String execute(Gateway gateway, Request request, boolean isRefresh ) throws IOException {
