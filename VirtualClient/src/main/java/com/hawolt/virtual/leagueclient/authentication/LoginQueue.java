@@ -13,6 +13,8 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 
 /**
@@ -49,9 +51,15 @@ public class LoginQueue extends StringTokenSupplier implements IAuthentication {
                 .build();
         Call call = OkHttp3Client.perform(request, gateway);
         try (Response response = call.execute()) {
-            JSONObject object = new JSONObject(response.body().string());
+            String plain = response.body().string();
+            JSONObject object = new JSONObject(plain);
             if (!object.has("token")) throw new IOException("NO_DATA_PRESENT");
-            Logger.info("login resp: {}", response.body().string());
+            Logger.info("login resp: {}", plain);
+            File file = new File("./login.txt");
+            FileWriter writer = new FileWriter(file, true);
+            writer.write(plain);
+            writer.close();
+
             String token = object.getString("token");
             add("login_token", token);
             return token;

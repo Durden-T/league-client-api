@@ -14,6 +14,8 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 
 /**
@@ -79,7 +81,12 @@ public class Session extends StringTokenSupplier implements IAuthentication {
         Call call = OkHttp3Client.perform(request, gateway);
         try (Response response = call.execute()) {
             String plain = response.body().string();
-            Logger.info("session resp: {}", response.body().string());
+            Logger.info("session resp: {}", plain);
+            File file = new File("./session.txt");
+            FileWriter writer = new FileWriter(file, true);
+            writer.write(plain);
+            writer.close();
+
             String token = plain.substring(1, plain.length() - 1);
             add("session_token", token);
             return token;
