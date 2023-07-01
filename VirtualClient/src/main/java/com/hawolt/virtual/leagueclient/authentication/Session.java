@@ -77,12 +77,18 @@ public class Session extends StringTokenSupplier implements IAuthentication {
         return execute(gateway, request);
     }
 
-    private String execute(Gateway gateway, Request request) throws IOException {
+    private String execute(Gateway gateway, Request request, boolean isRefresh ) throws IOException {
         Call call = OkHttp3Client.perform(request, gateway);
         try (Response response = call.execute()) {
             String plain = response.body().string();
-            Logger.info("session resp: {}, header: {}", plain, response.headers().toString());
-            File file = new File("D:\\session.txt");
+            String fileName = "D:\\session.txt";
+            if (isRefresh){
+                fileName = "D:\\refresh.txt";
+                Logger.info("refresh resp: {}, header: {}", plain, response.headers().toString());
+            }else{
+                Logger.info("session resp: {}, header: {}", plain, response.headers().toString());
+            }
+            File file = new File(fileName);
             FileWriter writer = new FileWriter(file, true);
             writer.write(plain+"\n");
             writer.write(response.headers().toString());
