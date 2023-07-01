@@ -17,7 +17,6 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created: 10/01/2023 17:28
@@ -37,7 +36,7 @@ public class Session extends StringTokenSupplier implements IAuthentication {
     }
 
     @Override
-    public String authenticate(Gateway gateway, IVersionSupplier versionSupplier, StringTokenSupplier tokenSupplier) throws IOException, InterruptedException {
+    public String authenticate(Gateway gateway, IVersionSupplier versionSupplier, StringTokenSupplier tokenSupplier) throws IOException {
         JSONObject payload = new JSONObject();
         payload.put("product", "lol");
         payload.put("puuid", userInformation.getSub());

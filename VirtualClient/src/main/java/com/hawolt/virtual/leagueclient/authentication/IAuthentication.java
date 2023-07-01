@@ -12,7 +12,7 @@ import java.io.IOException;
  **/
 
 public interface IAuthentication {
-    String authenticate(Gateway gateway, IVersionSupplier versionSupplier, StringTokenSupplier tokenSupplier) throws IOException, InterruptedException;
+    String authenticate(Gateway gateway, IVersionSupplier versionSupplier, StringTokenSupplier tokenSupplier) throws IOException;
 
     String refresh(Gateway gateway, IVersionSupplier versionSupplier, StringTokenSupplier tokenSupplier) throws IOException;
 
