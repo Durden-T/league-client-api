@@ -98,7 +98,7 @@ public class VirtualLeagueClientInstance {
                     Logger.error(e);
                 }
                 group.add(refreshable);
-                virtualLeagueClient.refresh(group, 55, 55);
+                virtualLeagueClient.refresh(group, 5, 5);
             }
             return virtualLeagueClient;
         }, 2);
